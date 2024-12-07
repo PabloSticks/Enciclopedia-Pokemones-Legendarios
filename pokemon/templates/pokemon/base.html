@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %} <!-- Cargar etiquetas estáticas -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pokémon{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'pokemon/css/styles.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Pokémon Legendarios</h1>
+        <nav>
+            <a href="{% url 'listar_pokemon' %}">Listar Pokémon</a>
+            <a href="{% url 'crear_pokemon' %}">Registrar Pokémon</a>
+        </nav>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+</body>
+</html>

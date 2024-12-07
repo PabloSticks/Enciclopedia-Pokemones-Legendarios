@@ -1,0 +1,32 @@
+{% extends 'pokemon/base.html' %}
+
+{% block title %}Listar Pokémon{% endblock %}
+
+{% block content %}
+<h2>Lista de Pokémon Legendarios</h2>
+<table border="1">
+    <tr>
+        <th>Nombre</th>
+        <th>Tipo 1</th>
+        <th>Tipo 2</th>
+        <th>Generación</th>
+        <th>Descripción</th>
+    </tr>
+    {% for pokemon in pokemones %}
+    <tr>
+        <td>{{ pokemon.nombre }}</td>
+        <td>{{ pokemon.tipo_1 }}</td>
+        <td>{{ pokemon.tipo_2 }}</td>
+        <td>{{ pokemon.generacion }}</td>
+        <td>{{ pokemon.descripcion }}</td>
+        <td>
+            {% if pokemon.imagen %}
+                <img src="{{ pokemon.imagen.url }}" alt="{{ pokemon.nombre }}" width="100">
+            {% else %}
+                No tiene imagen
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}
