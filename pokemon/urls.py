@@ -1,30 +1,24 @@
-from django.urls import path
+from django.urls import path, include
+from .views import (login_view, listar_pokemones, listar_eventos, crear_eventos, modificar_eventos, 
+    eliminar_eventos, logout_view, listarhabilidades_legendarias, combinar_datos, exportar_csv)
 
-from .views import (
-    UsuarioViewSet, PokemonLegendarioViewSet, RegionViewSet,
-    HabilidadLegendariaViewSet, EventoLegendarioViewSet, listar_pokemon, crear_pokemon
-)
-
-# Mapeo de métodos HTTP a los métodos del ViewSet
 urlpatterns = [
-    # API REST
-    path('api/usuarios/', UsuarioViewSet.as_view({'get': 'list', 'post': 'create'}), name='usuario-list'),
-    path('api/usuarios/<int:pk>/', UsuarioViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='usuario-detail'),
+    path('', login_view, name='login'),  
+    path('login/', login_view, name='login'),  
+    path('logout/', logout_view, name='logout'),
+    path('listar_pokemon/', listar_pokemones, name='listar_pokemon'),
+    path('listar_eventos/', listar_eventos, name='listar_eventos'),
+    path('crear_evento/', crear_eventos, name='crear_evento'),
 
-    path('api/pokemon/', PokemonLegendarioViewSet.as_view({'get': 'list', 'post': 'create'}), name='pokemon-list'),
-    path('api/pokemon/<int:pk>/', PokemonLegendarioViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='pokemon-detail'),
+    path('modificar_evento/<int:pk>/', modificar_eventos, name='modificar_evento'),
+    path('eliminar_evento/<int:pk>/', eliminar_eventos, name='eliminar_evento'),
 
-    path('api/regiones/', RegionViewSet.as_view({'get': 'list', 'post': 'create'}), name='region-list'),
-    path('api/regiones/<int:pk>/', RegionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='region-detail'),
+    path('habilidades_legendarias/', listarhabilidades_legendarias, name='habilidades_legendarias'),
 
-    path('api/habilidades/', HabilidadLegendariaViewSet.as_view({'get': 'list', 'post': 'create'}), name='habilidad-list'),
-    path('api/habilidades/<int:pk>/', HabilidadLegendariaViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='habilidad-detail'),
+    path('combinar_datos/', combinar_datos, name='combinar_datos'),
+    path('exportar_csv/', exportar_csv, name='exportar_csv'),
 
-    path('api/eventos/', EventoLegendarioViewSet.as_view({'get': 'list', 'post': 'create'}), name='evento-list'),
-    path('api/eventos/<int:pk>/', EventoLegendarioViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='evento-detail'),
 
-    # Vistas HTML
-    path('listar', listar_pokemon, name='listar_pokemon'), 
-    path('crear/', crear_pokemon, name='crear_pokemon'),  
-] 
 
+    path('api/', include('pokemon.api_urls'))
+]

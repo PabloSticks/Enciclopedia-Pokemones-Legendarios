@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Pokémon Legendarios{% endblock %}</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    <!-- Favicon -->
+    <link rel="icon" href="{% static 'images/favicon.ico' %}" type="image/x-icon">
+</head>
+<body>
+    <!-- Encabezado -->
+    <header class="bg-dark py-2">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="d-flex align-items-center">
+                <img src="{% static 'images/logo.png' %}" alt="Pokébola Logo" class="logo hover-grow me-3" style="max-height: 50px; border-radius: 50%;">
+                <h1 class="text-white m-0" style="font-size: 1.5rem; text-shadow: 1px 1px 3px rgba(255, 255, 0, 0.6);">Pokémon Legendarios</h1>
+            </div>
+            <nav class="d-flex gap-2">
+                <a href="{% url 'listar_pokemon' %}" class="btn btn-outline-light btn-sm hover-grow">Inicio</a>
+                <a href="{% url 'listar_eventos' %}" class="btn btn-outline-light btn-sm hover-grow">Listar Eventos</a>
+                <a href="{% url 'crear_evento' %}" class="btn btn-outline-light btn-sm hover-grow">Crear Evento</a>
+                <a href="{% url 'habilidades_legendarias' %}" class="btn btn-outline-light btn-sm hover-grow">Habilidades</a>
+                <a href="{% url 'combinar_datos' %}" class="btn btn-success btn-sm hover-grow">Datos Combinados</a>
+                <a href="{% url 'logout' %}" class="btn btn-danger btn-sm hover-grow">Cerrar Sesión</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Contenido Principal -->
+    <main class="container mt-3">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-center text-white py-2">
+        <p class="mb-0" style="font-size: 0.9rem;">© 2024 Pokémon Legendarios. Todos los derechos reservados.</p>
+        <p class="mb-0" style="font-size: 0.9rem;">Hecho con <span style="color: #ff1a1a;">❤</span> por PokéEntusiastas.</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Habilidades de los Pokémon Legendarios{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="font-size: 2rem; font-weight: bold; color: #8B0000;">Habilidades de los Pokémon Legendarios</h2>
+
+    <!-- Formulario de Filtros -->
+    <form method="get" class="p-3 rounded shadow mb-4" style="background-color: #fff; border: 2px solid #8B0000; max-width: 800px; margin: auto;">
+        <div class="row g-2">
+            <!-- Campo de texto para buscar por nombre -->
+            <div class="col-md-4">
+                <input type="text" name="nombre" class="form-control" placeholder="Buscar por nombre" value="{{ request.GET.nombre }}" style="border: 2px solid #8B0000; border-radius: 5px; font-size: 0.9rem;">
+            </div>
+            <!-- Selector de región -->
+            <div class="col-md-4">
+                <select name="region" class="form-select" style="border: 2px solid #8B0000; border-radius: 5px; font-size: 0.9rem;">
+                    <option value="">Todas las regiones</option>
+                    {% for region in regiones %}
+                    <option value="{{ region }}" {% if request.GET.region == region %}selected{% endif %}>{{ region }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <!-- Selector de tipo -->
+            <div class="col-md-4">
+                <select name="tipo" class="form-select" style="border: 2px solid #8B0000; border-radius: 5px; font-size: 0.9rem;">
+                    <option value="">Todos los tipos</option>
+                    {% for tipo in tipos %}
+                    <option value="{{ tipo }}" {% if request.GET.tipo == tipo %}selected{% endif %}>{{ tipo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-danger shadow-sm px-3 py-2" style="font-size: 0.9rem;">Filtrar</button>
+            <a href="{% url 'habilidades_legendarias' %}" class="btn btn-dark shadow-sm px-3 py-2" style="font-size: 0.9rem;">Limpiar filtros</a>
+        </div>
+    </form>
+
+    <!-- Lista de Pokémon y sus habilidades -->
+    <div class="row mt-4">
+        {% for pokemon in pokemones %}
+        <div class="col-12 mb-4">
+            <div class="card shadow-lg p-3 d-flex flex-row align-items-center" style="border: 2px solid #8B0000; border-radius: 15px; max-width: 900px; margin: auto;">
+                <!-- Imagen del Pokémon -->
+                {% if pokemon.imagen %}
+                    <img src="{{ pokemon.imagen.url }}" alt="{{ pokemon.nombre }}" class="img-fluid" style="max-width: 100px; height: auto;">
+                    {% else %}
+                    <span class="text-muted">Sin imagen</span>
+                {% endif %}
+                <!-- Información del Pokémon -->
+                <div class="pokemon-info ms-3" style="flex: 2;">
+                    <h4 style="color: #8B0000; font-weight: bold;">{{ pokemon.nombre }}</h4>
+                    <p style="font-size: 0.9rem;">
+                        <strong>Tipo 1:</strong> {{ pokemon.tipo_1 }}<br>
+                        {% if pokemon.tipo_2 %}<strong>Tipo 2:</strong> {{ pokemon.tipo_2 }}<br>{% endif %}
+                        <strong>Generación:</strong> {{ pokemon.generacion }}<br>
+                        <strong>Región:</strong> {{ pokemon.region.nombre }}
+                    </p>
+                    <h5 style="color: #8B0000; font-weight: bold;">Habilidades Legendarias:</h5>
+                    <ul style="font-size: 0.9rem; padding-left: 1rem;">
+                        {% for habilidad in pokemon.habilidades.all %}
+                        <li><strong>{{ habilidad.nombre }}</strong>: {{ habilidad.descripcion }}</li>
+                        {% empty %}
+                        <li class="text-muted">Sin habilidades legendarias registradas.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p class="text-center text-muted">No se encontraron Pokémon que coincidan con los filtros.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

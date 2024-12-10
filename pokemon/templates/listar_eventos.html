@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Listar Eventos{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="color: #8B0000; font-weight: bold;">Listado de Eventos</h2>
+    <p class="text-center" style="font-size: 1.1rem; color: #333;">
+        Rol actual: <span style="font-weight: bold; color: #8B0000;">{{ user_role }}</span>
+    </p>
+    
+    <div class="table-responsive shadow-lg">
+        <table class="table align-middle border text-center">
+            <thead style="background-color: #000; color: #fff;">
+                <tr>
+                    <th>Evento</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th>Pokémon</th>
+                    <th>Región</th>
+                    <th>Usuario</th>
+                    {% if user_role == 'Admin' %}
+                    <th>Acciones</th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for evento in eventos %}
+                <tr>
+                    <td class="fw-bold" style="color: #8B0000;">{{ evento.evento }}</td>
+                    <td>{{ evento.descripcion }}</td>
+                    <td>{{ evento.fecha }}</td>
+                    <td>{{ evento.pokemon_nombre }}</td>
+                    <td>{{ evento.region_nombre }}</td>
+                    <td>{{ evento.usuario_nombre }}</td>
+                    {% if user_role == 'Admin' %}
+                    <td>
+                        <a href="{% url 'modificar_evento' evento.id %}" class="btn btn-warning btn-sm">Modificar</a>
+                        <a href="{% url 'eliminar_evento' evento.id %}" class="btn btn-danger btn-sm">Eliminar</a>
+                    </td>
+                    {% endif %}
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center text-muted">No hay eventos disponibles.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

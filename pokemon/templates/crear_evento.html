@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+{% block title %}Crear Evento{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card p-3 shadow-lg" style="background-color: rgba(255, 255, 255, 0.9); border: 2px solid #8B0000; border-radius: 10px;">
+        <h1 class="text-center mb-3" style="color: #8B0000; font-weight: bold; font-size: 1.5rem;">Crear Evento</h1>
+        <form method="post" id="crearEventoForm">
+            {% csrf_token %}
+            <div class="mb-2">
+                <label for="evento" class="form-label" style="color: #8B0000; font-weight: bold;">Nombre del Evento:</label>
+                <input type="text" id="evento" name="evento" class="form-control" required style="border: 2px solid #8B0000;">
+            </div>
+
+            <div class="mb-2">
+                <label for="descripcion" class="form-label" style="color: #8B0000; font-weight: bold;">Descripción:</label>
+                <textarea id="descripcion" name="descripcion" class="form-control" rows="3" required style="border: 2px solid #8B0000;"></textarea>
+            </div>
+
+            <div class="mb-2">
+                <label for="fecha" class="form-label" style="color: #8B0000; font-weight: bold;">Fecha:</label>
+                <input type="date" id="fecha" name="fecha" class="form-control" required style="border: 2px solid #8B0000;">
+            </div>
+
+            <div class="mb-2">
+                <label for="pokemon" class="form-label" style="color: #8B0000; font-weight: bold;">Pokémon:</label>
+                <select id="pokemon" name="pokemon" class="form-select" required style="border: 2px solid #8B0000;">
+                    {% for pokemon in pokemones %}
+                    <option value="{{ pokemon.id }}">{{ pokemon.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="mb-2">
+                <label for="region" class="form-label" style="color: #8B0000; font-weight: bold;">Región:</label>
+                <select id="region" name="region" class="form-select" required style="border: 2px solid #8B0000;">
+                    {% for region in regiones %}
+                    <option value="{{ region.id }}">{{ region.nombre }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-danger w-100 py-1 shadow-sm" style="font-size: 0.9rem; font-weight: bold;">Crear Evento</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

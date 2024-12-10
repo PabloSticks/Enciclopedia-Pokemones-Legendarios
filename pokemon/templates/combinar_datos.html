@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block title %}Datos Combinados{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg" style="max-width: 800px; margin: auto;">
+        <div class="card-header bg-dark text-white text-center py-2">
+            <h4 style="margin: 0;">Filtrar y Descargar Datos Combinados</h4>
+        </div>
+        <div class="card-body">
+            <!-- Formulario de Filtro -->
+            <form method="get" class="row g-2 align-items-center">
+                <div class="col-md-3">
+                    <input type="text" id="evento" name="evento" class="form-control" placeholder="Evento" value="{{ request.GET.evento }}">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="pokemon" name="pokemon" class="form-control" placeholder="Pokémon" value="{{ request.GET.pokemon }}">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="region" name="region" class="form-control" placeholder="Región" value="{{ request.GET.region }}">
+                </div>
+                <div class="col-md-3">
+                    <input type="text" id="usuario" name="usuario" class="form-control" placeholder="Usuario" value="{{ request.GET.usuario }}">
+                </div>
+                <div class="col-12 text-center mt-2">
+                    <button type="submit" class="btn btn-primary btn-sm me-2">Filtrar</button>
+                    <button type="submit" name="descargar" value="1" class="btn btn-success btn-sm">Descargar CSV</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Resultados de la Tabla -->
+    <div class="table-responsive mt-4">
+        <table class="table table-striped table-bordered text-center shadow-lg">
+            <thead class="bg-dark text-white">
+                <tr>
+                    <th>Evento</th>
+                    <th>Descripción</th>
+                    <th>Fecha</th>
+                    <th>Pokémon</th>
+                    <th>Región</th>
+                    <th>Usuario</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evento in eventos %}
+                <tr>
+                    <td>{{ evento.evento }}</td>
+                    <td>{{ evento.descripcion }}</td>
+                    <td>{{ evento.fecha }}</td>
+                    <td>{{ evento.pokemon.nombre }}</td>
+                    <td>{{ evento.region.nombre }}</td>
+                    <td>{{ evento.usuario.nombre }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="6" class="text-muted">No se encontraron resultados.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

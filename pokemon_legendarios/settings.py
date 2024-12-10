@@ -32,7 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'pokemon',  # Tu app personalizada
+    'pokemon', 
     'rest_framework',
 ]
 
@@ -51,7 +51,7 @@ ROOT_URLCONF = 'pokemon_legendarios.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'TEMPLATES'],  # Ruta correcta a tus templates
+        'DIRS': ['TEMPLATES'], 
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

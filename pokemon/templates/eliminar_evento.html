@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block title %}Eliminar Evento{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="color: #8B0000; font-weight: bold;">¿Estás seguro de que quieres eliminar este evento?</h2>
+    <div class="p-4 rounded shadow" style="background-color: #fff; border: 2px solid #8B0000; max-width: 600px; margin: 0 auto;">
+        <p><strong style="color: #8B0000;">Evento:</strong> {{ evento.evento }}</p>
+        <p><strong style="color: #8B0000;">Descripción:</strong> {{ evento.descripcion }}</p>
+        <p><strong style="color: #8B0000;">Fecha:</strong> {{ evento.fecha }}</p>
+        <p><strong style="color: #8B0000;">Pokémon:</strong> {{ evento.pokemon_nombre }}</p>
+        <p><strong style="color: #8B0000;">Región:</strong> {{ evento.region_nombre }}</p>
+        <p><strong style="color: #8B0000;">Usuario:</strong> {{ evento.usuario_nombre }}</p>
+
+        <form method="post" class="text-center">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger shadow-sm px-4">Sí, eliminar</button>
+            <a href="{% url 'listar_eventos' %}" class="btn btn-dark shadow-sm px-4">Cancelar</a>
+        </form>
+    </div>
+</div>
+{% endblock %}

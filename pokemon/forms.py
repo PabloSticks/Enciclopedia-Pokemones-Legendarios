@@ -4,7 +4,7 @@ from .models import PokemonLegendario
 class PokemonForm(forms.ModelForm):
     class Meta:
         model = PokemonLegendario
-        fields = ['nombre', 'tipo_1', 'tipo_2', 'generacion', 'descripcion', 'imagen']
+        fields = ['nombre', 'tipo_1', 'tipo_2', 'generacion', 'descripcion', 'imagen', 'region']
         widgets = {
             'descripcion': forms.Textarea(attrs={'rows': 4}),
         }

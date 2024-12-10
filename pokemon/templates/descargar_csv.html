@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Descargar Pokémon en CSV{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="text-center mb-4" style="font-size: 2rem; font-weight: bold; color: #8B0000;">
+        Descargar Pokémon en CSV
+    </h2>
+
+    <!-- Formulario de Filtros -->
+    <form method="get" action="{% url 'descargar_csv' %}" class="p-3 rounded shadow">
+        <div class="row g-3 align-items-center">
+            <div class="col-md-4">
+                <input type="text" name="nombre" class="form-control shadow-sm" placeholder="Buscar por nombre" value="{{ request.GET.nombre }}">
+            </div>
+            <div class="col-md-4">
+                <select name="region" class="form-select shadow-sm">
+                    <option value="">Todas las regiones</option>
+                    {% for region in regiones %}
+                    <option value="{{ region }}" {% if request.GET.region == region %}selected{% endif %}>{{ region }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="col-md-4">
+                <select name="tipo" class="form-select shadow-sm">
+                    <option value="">Todos los tipos</option>
+                    {% for tipo in tipos %}
+                    <option value="{{ tipo }}" {% if request.GET.tipo == tipo %}selected{% endif %}>{{ tipo }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <button type="submit" class="btn btn-success shadow-sm px-4 py-2">
+                Descargar CSV
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}
